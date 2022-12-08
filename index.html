@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-sat Match</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700&family=Source+Sans+Pro:ital,wght@1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header>
+      <h1>M-Sat Match</h1>
+      <p class="subtitle">A little program to check for matches</p>
+    </header>
+  <div class="wrapper flex">
+    
+    <section class="about">
+      <details>
+        <summary>
+          <h2>How to use the program</h2>
+        </summary>
+        <div class="flex">
+          <div>
+            <p>Msat match is designed to be used with .JSON files. You can convert your excel data into a .JSON file using this <a href="files/JsonExportSheet.xlsm" download="">macro enabled excel doc</a>. Alternatively you can re-create the workbook using the code and instructions <a href="https://syntaxbytetutorials.com/save-excel-table-to-json-file-using-vba-and-vba-json/" target="_blank">here.</a></p>
+            <h3>How to use/structure the spreadsheet</h3>
+            <p>Your data goes into the table in the "Generate Json" sheet under the appropriate headings, explanations below. Alternatively you can delete the existing table and create your own using insert -> table. If your data is not within the confines of the table it will not be exported, re-size the table as needed.</p>
+            <p>The first three colum headings must be exactly as shown below (case sensitive).</p>
+            <div class="image">
+              <img src="images/example table.JPG" alt="table example">
+            </div>
+            <p>
+              ID is for your organism/sample Id. <br>
+            The values in the Dropout column should be set to either true or false depending on your needs. Setting it to true will allow a homozygous marker to match with a heterozygous one provided one value is shared for the selected sample/organism. For example, GEO145 and GEO146 would be considered a match at the m1 marker as both share the value 160 and GEO145 has dropout set to true.<br>
+            Note that you can have a mix of both true and false in this column.
+            </p>
+            <p></p>
+            <p>The sequence column should remain empty, the program overwrites this space in the json file when it runs.</p>
+            <p>Marker labels should go in the first header column of the pair (D2 in the example). The other heading (E2) for the marker is ignored. There isn't a limit on the number of markers you can use, simply add or remove columns from the table as required.</p>
+            <p>Once everything has been set, simply press the "Save as json" button and save the resulting file somewhere. There are two tests for your dataset, one for M-sat matching, and one for Parent-Offspring. You can use the same file for both tests.</p>
+            <h3>How the tests work:</h3>
+            <p>M-sat (micro-satellite) matching checks if any of the samples share the same values for every marker. You have the option to enable dropout matches as mentioned above. Successful matches will appear in the results box indicating which two sample ids match as well as listing any dropout matches and which marker they occured at. For cases where no data is present for a given marker you can use 0 0 as the value for the marker. 0 0 will be treated as a match but will be recorded as an instance of "no-data match" if the rest of the markers match.</p>
+            <p>Parent-Offspring tests if any samples have one value in common for every marker. You can enable dropout matches for this test and no data matches also function here. Successful results will also populate in the results box</p>
+            <p>If there are no matches, an alert will pop-up stating so.</p>
+            <h3>Sampel JSON files</h3>
+            <p>Below are some sample json files to test:</p>
+            <p><a href="files/No matches.json" download="">No matches</a></p>
+            <p><a href="files/Match with dropout and Nodata.json" download="">Matches with dropout and no data</a></p>
+            <p><a href="files/Parent offspring match.json" download="">Parent offspring match</a></p>
+          </div>
+        </div>
+      </details>
+    </section>
+    <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post" class="flex">
+      <fieldset>
+        <h2>M-Sat matching test</h2>
+          <input type='file' id='fileinput'>
+          <input type='button' id='btnLoad' value='Run Test' onclick='loadFile();'>
+      </fieldset>
+      <fieldset>
+        <h2>Parent-Offspring test</h2>
+          <input type='file' id='fileinputPO'>
+          <input type='button' id='btnLoadPO' value='Run Test' onclick='loadFilePO();'>
+      </fieldset>
+    </form>
+    <h3>Results:</h3>
+    <h4>M-sat match results will appear beneath here</h4>
+    <ul class="results">
+
+    </ul>
+    <h4>Parent - Offspring match results will appear beneath here</h4>
+    <ul class="pOResults">
+
+    </ul>
+  </div>
+      <!-- type="text/javascript"  -->
+      <script src='/assets/main.js' defer></script>
+</body>
+</html>
+
+
