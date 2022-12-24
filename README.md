@@ -11,7 +11,7 @@ A small tool to automate the identification of matching microsatellite profiles 
 The app uses the FileReader api and .JSON parser to allow for local files to be loaded. Uses client side Javascript to run the tests and manipulate the DOM. Can be used offline by opening the .html document.
 
 ## Optimisations:
-The first working version compared all samples to all samples, resulting in each sample being compared to itself and being recorded as a positive match. I added a conditional that stopped this by checking the sample names wern't identical.
+The first working version compared all samples to all samples, resulting in each sample being compared to itself and being recorded as a positive match. I added a conditional that stopped this by checking the sample names weren't identical.
 Positive matches would also duplicate , E.G:
 
 * Sample 1 matches sample 5
@@ -21,9 +21,9 @@ To remedy this, the sample ids of positive matches are checked against an array 
 
 Results = [[sample 1, sample 5], [sample 3, sample 4]]. 
 
-When the program finds that sample 5 matches sample 1, it will not post it to the DOM as the results array has a pair(array) that contains both sample 5 and sample 1.
+When the program finds that sample 5 matches sample 1, it will not post it to the DOM as the results array has a pair(array) that contains both sample 5 and sample 1 already.
 
 
-In the future I would like to move the positioning of the above optimisations to run before the third loop to save a bit of time. I would also like to add some validation to ensure that the first three columns have the appropriate name as in the example. This could be done by checking the name of the key value pairs for the first object in the JSON file. And finally, having a message to inform users if they have loaded a file that isn't a .JSON file.
+In the future I would like to move the positioning of the above optimisations to run before the third loop to save a bit of time. I would also like to add some validation to ensure that the first three property names are the same as those specified in the 'how to use the program' dropdown. And finally, having a message to inform users if they have loaded a file that isn't a .JSON file.
 
 ## Lessons learned:
